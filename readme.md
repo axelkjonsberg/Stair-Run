@@ -4,6 +4,7 @@ This tool processes OpenStreetMap data to identify and categorize stairs based o
 
 Below is an example result from the tool: several stairs in Oslo categorized as different map layers.
 ![Map of Oslo with different stairs found by the ](Images/image.png)
+(Maps like this can be created by uploading .osm data to [umap](https://umap.openstreetmap.fr/en/map/new))
 
 ## Requirements
 
