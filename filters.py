@@ -1,3 +1,7 @@
+"""
+Functions for filtering and processing stairs and ski jumps.
+"""
+
 import concurrent.futures
 import threading
 import logging
@@ -11,6 +15,9 @@ TOTAL_STEP_THRESHOLD_3 = 250
 TOTAL_STEP_THRESHOLD_4 = 300
 
 def find_connected_stairs(stairs, candidate, lock):
+    """
+    Find connected stairs within a dynamic distance based on step length.
+    """
     visited = set()
     to_visit = [candidate]
     connected_stairs = []
@@ -23,14 +30,14 @@ def find_connected_stairs(stairs, candidate, lock):
         visited.add(current_point)
         connected_stairs.append((current_point, current_step_count))
 
-        logging.debug(f'Visiting: {current_point}, steps: {current_step_count}')
+        logging.debug('Visiting: %s', current_point)
 
         dynamic_distance = STEP_LENGTH * current_step_count
 
         with lock:
             for idx, (point, step_count) in enumerate(stairs):
                 if idx % LOG_INTERVAL == 0:
-                    logging.info(f"Checking proximity for stair {idx}")
+                    logging.info("Checking proximity for stair %d", idx)
                 if point in visited:
                     continue
 
@@ -40,6 +47,9 @@ def find_connected_stairs(stairs, candidate, lock):
     return connected_stairs
 
 def group_stairs(stairs):
+    """
+    Group stairs by proximity to each other.
+    """
     candidates = [stair for stair in stairs if stair[1] > 25]
     grouped_stairs = []
     lock = threading.Lock()
@@ -53,11 +63,14 @@ def group_stairs(stairs):
                 continue
 
             grouped_stairs.append(connected_stairs)
-            logging.debug(f'Connected stairs: {connected_stairs}')
+            logging.debug('Connected stairs: %s', connected_stairs)
 
     return grouped_stairs
 
 def remove_duplicates(groups):
+    """
+    Remove duplicate stairs group by group.
+    """
     unique_stairs = []
     seen = set()
 
@@ -73,6 +86,9 @@ def remove_duplicates(groups):
     return unique_stairs
 
 def filter_by_step_count(groups):
+    """
+    Filter groups of stairs by total step count into different categories.
+    """
     categorized_stairs = {
         "150-200": [],
         "200-250": [],

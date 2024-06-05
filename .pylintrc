@@ -1,0 +1,25 @@
+[MASTER]
+ignore=.venv
+
+[MESSAGES CONTROL]
+disable=C0301
+
+[REPORTS]
+# Set the output format. Available formats are text, parseable, colorized, msvs (visual studio) and html
+output-format=text
+
+[FORMAT]
+# Maximum number of characters on a single line.
+max-line-length=100
+
+[DESIGN]
+# Maximum number of arguments for function / method
+max-args=5
+
+[LOGGING]
+# Format style used to check string formatting in logging function arguments.
+logging-format-style=old
+
+[IMPORTS]
+# Allow wildcard imports from modules with the specified extensions. This can be useful when combining Python with other languages.
+extension-pkg-whitelist=

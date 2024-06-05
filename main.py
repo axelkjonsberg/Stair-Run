@@ -1,3 +1,7 @@
+"""
+Main script to process OSM file to filter stairs and ski jumps
+"""
+
 import argparse
 import logging
 import os
@@ -22,13 +26,13 @@ unique_stairs = remove_duplicates(grouped_stairs)
 filtered_stairs = filter_by_step_count(unique_stairs)
 
 # Create output directory
-output_dir = ".output"
-if not os.path.exists(output_dir):
-    os.makedirs(output_dir)
+OUTPUT_DIR = ".output"
+if not os.path.exists(OUTPUT_DIR):
+    os.makedirs(OUTPUT_DIR)
 
 base_name = os.path.splitext(os.path.basename(input_file))[0]
 for category, stairs in filtered_stairs.items():
-    write_filtered_stairs_to_file(stairs, os.path.join(output_dir, f"{base_name}_stairs_{category}.osm"))
+    write_filtered_stairs_to_file(stairs, os.path.join(OUTPUT_DIR, f"{base_name}_stairs_{category}.osm"))
 
 # Write ski jumps to a separate file
-write_ski_jumps_to_file(handler.ski_jumps, os.path.join(output_dir, f"{base_name}_ski_jumps.osm"))
+write_ski_jumps_to_file(handler.ski_jumps, os.path.join(OUTPUT_DIR, f"{base_name}_ski_jumps.osm"))
