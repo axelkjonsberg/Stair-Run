@@ -32,7 +32,7 @@ def find_connected_stairs(stairs, candidate, lock):
 
         logging.debug('Visiting: %s', current_point)
 
-        dynamic_distance = STEP_LENGTH * current_step_count
+        dynamic_distance = get_dynamic_proximity(current_step_count)
 
         with lock:
             for idx, (point, step_count) in enumerate(stairs):
@@ -45,6 +45,13 @@ def find_connected_stairs(stairs, candidate, lock):
                     to_visit.append((point, step_count))
 
     return connected_stairs
+
+def get_dynamic_proximity(stair_step_count):
+    """
+    Get a proximity wherein we should look for new stair sections.
+    """
+    dynamic_distance = STEP_LENGTH * stair_step_count
+    return dynamic_distance
 
 def group_stairs(stairs):
     """
